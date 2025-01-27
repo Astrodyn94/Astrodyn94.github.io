@@ -1,0 +1,11 @@
+title: DainEun
+description: Your blog description
+baseurl: ""
+url: "https://astrodyn94.github.io"
+theme: minima
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
