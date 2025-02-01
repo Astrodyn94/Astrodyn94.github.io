@@ -19,26 +19,79 @@ toc_sticky: true
 
 **Paper:** [Towards evaluating and building versatile large language models for medicine](https://www.nature.com/articles/s41746-024-01390-4)
 
----
-
 ## 1. Overview
 
 MMedIns-Llama 3은 **MedS-Ins 데이터셋** (5M 인스턴스, 19K 인스트럭션, 122개 태스크)을 활용하여 개발된 **의료 도메인 특화 언어 모델**입니다.
 
----
+## 2. Datasets
 
-## 2. Task Categories
+### 2.1 Source Datasets
+- **규모**: 58개의 의료 관련 데이터셋
+- **예시**: MIMIC-IV, MedQA, SEER 등
+- **활용**: MedS-Bench와 MedS-Ins 구축을 위한 기본 소스
+
+### 2.2 MedS-Bench (평가용)
+- **목적**: 의료 LLM 모델들의 성능을 평가하기 위한 벤치마크
+- **구성**: 
+ - 28개의 데이터셋 선택
+ - 11개 clinical tasks로 재구성
+ - instruction-prompted Q&A 구조로 변환
+- **규모**: 약 0.3M 샘플
+- **특징**: 실제 임상 상황을 반영한 종합적 평가 가능
+
+### 2.3 MedS-Ins (학습용)
+- **목적**: 의료 LLM을 학습시키기 위한 instruction tuning 데이터셋
+- **구성**: 
+ - 58개 데이터셋 + Natural Instructions
+ - 19개 task categories
+ - 122개 세부 태스크
+- **규모**: 
+ - 5M 인스턴스
+ - 19K 인스트럭션
+- **도메인 분포**:
+ - Medical knowledge bases (43%)
+ - Clinical texts (35%)
+ - Academic papers (13%)
+ - Exams (7%)
+ - Daily conversations (2%)
+
+
+### 2.4 데이터셋 관계도
+
+             Source Datasets (58개)
+                     |
+            ________ | ________
+           |                   |
+           ↓                   ↓
+    MedS-Bench (28개)    MedS-Ins (58개+α)
+    (평가 데이터셋)       (학습 데이터셋)
+           |                   |
+           ↓                   ↓
+     벤치마크 구축      MMedIns-Llama 3 학습
+           |                   |
+           |_______   ________|
+                   | |
+                   ↓
+                  평가
+
+**주요 특징**:
+- 소스 데이터셋 중 일부는 MedS-Bench와 MedS-Ins에 모두 활용
+- MedS-Bench와 MedS-Ins는 각각 평가와 학습이라는 다른 목적으로 최적화
+- MedS-Ins는 Natural Instructions에서 필터링한 추가 데이터 포함
+
+## 3. Task Categories
 
 <br>
 
-| Category                      | Tasks                                                                                                                                                                                             |
+| Category | Tasks |
 | :---------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Clinical Decision Support** | Diagnosis<br>Treatment Planning<br>Clinical Outcome Prediction<br>Information Extraction                                                                                                          |
-| **Medical Text Processing**   | Text Summarization<br>Named Entity Recognition<br>Text Classification<br>Text Retrieval                                                                                                          |
-| **Medical Knowledge Understanding** | Multiple Choice Question Answering<br>Explanation<br>Rationale<br>Fact Verification<br>Natural Language Inference                                                                                |
-| **Medical Communication**     | Intent Identification<br>Translation<br>Dialogue<br>Sentence Composition Analysis<br>Word Relation Classification<br>Wrong Candidate Generation |
+| **Clinical Decision Support** | Diagnosis<br>Treatment Planning<br>Clinical Outcome Prediction<br>Information Extraction |
+| **Medical Text Processing** | Text Summarization<br>Named Entity Recognition<br>Text Classification<br>Text Retrieval |
+| **Medical Knowledge Understanding** | Multiple Choice Question Answering<br>Explanation<br>Rationale<br>Fact Verification<br>Natural Language Inference |
+| **Medical Communication** | Intent Identification<br>Translation<br>Dialogue<br>Sentence Composition Analysis<br>Word Relation Classification<br>Wrong Candidate Generation |
 
 <br>
+```
 
 ---
 
