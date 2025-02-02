@@ -25,12 +25,16 @@ MMedIns-Llama 3은 **MedS-Ins 데이터셋** (5M 인스턴스, 19K 인스트럭�
 
 ## 2. Datasets
 
+![MedS-Benchmark 구조도](../Images/Fig.1.png)
+*Figure 1: MedS-Benchmark의 계층적 구조. 가장 바깥쪽 원은 11개의 주요 task categories를 나타내며, 중간 원은 28개의 소스 데이터셋, 가장 안쪽 원은 52개의 세부 태스크를 보여준다.*
+
+
 ### 2.1 Source Datasets
 - **규모**: 58개의 의료 관련 데이터셋
 - **예시**: MIMIC-IV, MedQA, SEER 등
 - **활용**: MedS-Bench와 MedS-Ins 구축을 위한 기본 소스
 
-### 2.2 MedS-Bench (평가용)
+### 2.2 MedS-Bench (벤치마크 데이터셋)
 - **목적**: 의료 LLM 모델들의 성능을 평가하기 위한 벤치마크
 - **구성**: 
  - 28개의 데이터셋 선택
@@ -75,11 +79,12 @@ MMedIns-Llama 3은 **MedS-Ins 데이터셋** (5M 인스턴스, 19K 인스트럭�
                   평가
 
 **주요 특징**:
-- 소스 데이터셋 중 일부는 MedS-Bench와 MedS-Ins에 모두 활용
-- MedS-Bench와 MedS-Ins는 각각 평가와 학습이라는 다른 목적으로 최적화
+- MedS-Bench와 MedS-Ins는 각각 벤치마크 구축과 Instruction-Tuning이라는 다른 목적으로 최적화
 - MedS-Ins는 Natural Instructions에서 필터링한 추가 데이터 포함
 
-## 3. Task Categories
+## 3. Task Categories of MedS-InS
+
+MedS-Ins는 MedS-Bench의 11개 평가 카테고리를 포함하여, 총 19개의 task categories를 4개의 주요 그룹으로 분류한다.
 
 <br>
 
@@ -91,11 +96,13 @@ MMedIns-Llama 3은 **MedS-Ins 데이터셋** (5M 인스턴스, 19K 인스트럭�
 | **Medical Communication** | Intent Identification<br>Translation<br>Dialogue<br>Sentence Composition Analysis<br>Word Relation Classification<br>Wrong Candidate Generation |
 
 <br>
-```
 
 ---
 
-## 3. Training Data Sources
+## 3. Insturction-tuning training Data Sources
+
+![Pipeline for insturction tuning](../Images/Fig.3.png)
+
 
 ### 3.1 Data Distribution
 
@@ -131,6 +138,7 @@ MMedIns-Llama 3은 **MedS-Ins 데이터셋** (5M 인스턴스, 19K 인스트럭�
 
 ### 5.1 Data Construction Process (MedS-InS)
 
+
 #### A. Filtering Natural Instructions
 
 -   **기존 Instruction 데이터 필터링**
@@ -150,7 +158,7 @@ MMedIns-Llama 3은 **MedS-Ins 데이터셋** (5M 인스턴스, 19K 인스트럭�
 
 -   **프롬프트 생성**
     -   각 태스크당 5명의 전문가가 3개씩 프롬프트 작성 (태스크당 15개)
-    -   GPT-4를 활용한 프롬프트 추가 생성
+    -   전문가가 생성한 프롬프트를 기반으로 GPT-4를 활용한 프롬프트 추가 생성
     -   예시:
 
         ```
@@ -187,7 +195,33 @@ MMedIns-Llama 3은 **MedS-Ins 데이터셋** (5M 인스턴스, 19K 인스트럭�
 
 ---
 
-### 5.2 Evaluation Metrics
+
+### 5.2 Prompting Strategy & Training Process
+
+1. **Training Process**
+   - Autoregressive한 next token prediction
+   - Cross-entropy loss 사용
+   - Input Format: [인스트럭션 토큰들] [컨텍스트 토큰들] [정답 토큰들]
+
+2. **프롬프팅 전략**
+   
+   A. **Zero-shot Approach**
+   ```plaintext
+   Instruction: Given the detailed finding of Ultrasound imaging diagnostics,
+               summarize the note's conclusion in a few words.
+   Input: [환자의 초음파 findings 내용]
+   Output: [impression 섹션의 내용]
+   ```
+
+   B. **Few-shot Approach**
+   ```plaintext
+   Case 1: [예시 케이스 1]
+   Case 2: [예시 케이스 2]
+   Case 3: [예시 케이스 3]
+   Instruction: Follow the examples above...
+   Input: [새로운 케이스]
+   ```
+### 5.3 Evaluation Metrics
 
 #### Accuracy 기반 평가
 
@@ -214,27 +248,3 @@ MMedIns-Llama 3은 **MedS-Ins 데이터셋** (5M 인스턴스, 19K 인스트럭�
 -   **Rationale Generation** (MMedBench)
 
 ---
-
-### 5.3 Training Process
-
--   **Input Format**: [인스트럭션 토큰들] [컨텍스트 토큰들] [정답 토큰들]
--   **Training Objective**: Next Token Prediction
--   **Loss Function**: Cross-entropy loss
-
----
-
-### 5.4 Prompting Strategies
-
--   **Zero-shot Approach**
--   **Few-shot Approach**
-
-**Example:**
-
-```plaintext
-CopyInput (Instruction + Context):
-"Given the detailed finding of Ultrasound imaging diagnostics,
-summarize the note's conclusion in a few words."
-+ [환자의 초음파 findings 내용]
-
-Output:
-[impression 섹션의 내용]
