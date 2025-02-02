@@ -25,7 +25,7 @@ MMedIns-Llama 3은 **MedS-Ins 데이터셋** (5M 인스턴스, 19K 인스트럭�
 
 ## 2. Datasets
 
-![MedS-Benchmark 구조도](../Images/Fig.1.png)
+![MedS-Benchmark 구조도](/Images/Fig.1.png)
 *Figure 1: MedS-Benchmark의 계층적 구조. 가장 바깥쪽 원은 11개의 주요 task categories를 나타내며, 중간 원은 28개의 소스 데이터셋, 가장 안쪽 원은 52개의 세부 태스크를 보여준다.*
 
 
@@ -101,7 +101,7 @@ MedS-Ins는 MedS-Bench의 11개 평가 카테고리를 포함하여, 총 19개�
 
 ## 3. Insturction-tuning training Data Sources
 
-![Pipeline for insturction tuning](../Images/Fig.3.png)
+![Pipeline for insturction tuning](/Images/Fig.3.png)
 
 
 ### 3.1 Data Distribution
