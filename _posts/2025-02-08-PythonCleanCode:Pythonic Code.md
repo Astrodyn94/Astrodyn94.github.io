@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Python Clean Code : Pythonic Code"
-date: 2024-02-08 00:00:00 +0900
+date: 2024-02-08 14:00:00 +0900
 categories: Programming Python
 tags:
     - Python
