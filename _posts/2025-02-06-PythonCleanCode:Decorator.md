@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "PythonCleanCode: Decorator "
+title: "Python Clean Code: Decorator "
 date: 2024-02-08 00:00:00 +0900
 categories: Programming Python
 tags:

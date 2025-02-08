@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "PythonCleanCode: Magic method, Encapsulation , Inheritance"
+title: "Python Clean Code: Magic method, Encapsulation , Inheritance"
 date: 2024-02-08 14:00:00 +0900
 categories: Programming Python
 tags:

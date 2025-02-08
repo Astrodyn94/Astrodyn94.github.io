@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "PythonCleanCode: Docstring, Type Annotation"
+title: "Python Clean Code: Docstring, Type Annotation"
 date: 2024-02-08 00:00:00 +0900
 categories: Programming Python
 tags:
