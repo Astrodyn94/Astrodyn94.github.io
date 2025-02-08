@@ -8,7 +8,7 @@ tags:
    - Type Hints
    - Code Quality
    - Documentation
-description: "파이썬 코드의 가독성과 품질을 높이기 위한 Docstring, Type Annotation, Mypy, Pylint"
+description: "Docstring, Type Annotation, Mypy, Pylint"
 toc: true
 toc_sticky: true
 ---

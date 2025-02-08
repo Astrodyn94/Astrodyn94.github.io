@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "PythonCleanCode: Decorator 패턴의 이해"
+title: "PythonCleanCode: Decorator "
 date: 2024-02-08 00:00:00 +0900
 categories: Programming Python
 tags:
@@ -9,7 +9,7 @@ tags:
     - Clean Code
     - Design Pattern
     - Best Practices
-description: "파이썬 데코레이터 패턴의 기본 개념부터 고급 활용까지: functools.wraps와 실전 예제"
+description: "python decorator" 
 toc: true
 toc_sticky: true
 ---
