@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Python 개발자를 위한 클린 코드: Decorator 패턴의 이해"
+title: "PythonCleanCode: Decorator 패턴의 이해"
 date: 2024-02-08 00:00:00 +0900
 categories: Programming Python
 tags:
